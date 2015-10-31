@@ -1,8 +1,8 @@
 name := "helloSpark"
 
-version := "1.0"
+version := "1.1"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.10.5"
 
 libraryDependencies ++= {
   val sparkVersion =  "1.3.1"
