@@ -1,6 +1,6 @@
 name := "streaming-twitter"
 
-version := "1.2"
+version := "1.3"
 
 scalaVersion := "2.10.4"
 
@@ -28,3 +28,4 @@ assemblyMergeStrategy in assembly := {
 assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false)
 
 resolvers += "Local couchdb-scala repo" at (baseDirectory.value / "lib/couchdb-scala").toURI.toString
+resolvers += "Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases"
