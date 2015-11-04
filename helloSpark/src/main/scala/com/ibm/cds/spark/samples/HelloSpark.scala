@@ -18,6 +18,7 @@
 package com.ibm.cds.spark.samples
 
 import org.apache.spark._
+import scala.util.Random
 
 object HelloSpark {
   
@@ -38,6 +39,12 @@ object HelloSpark {
   def computeStatsForCollection( spark: SparkContext, countPerPartitions: Int = 100000, partitions: Int=5): (Double, Double) = {    
     val totalNumber = math.min( countPerPartitions * partitions, Long.MaxValue).toInt;
     val rdd = spark.parallelize( 1 until totalNumber,partitions);
+    (rdd.mean(), rdd.variance())
+  }
+
+  def randomNormal( spark: SparkContext, N: Int = 100000, partitions: Int=5): (Double, Double) = {    
+    val rand = new scala.util.Random(1); //always use the same seed for consistent results
+    val rdd = sc.parallelize( Seq.fill(N)(rand.nextGaussian()) ,paritions);
     (rdd.mean(), rdd.variance())
   }
 }
