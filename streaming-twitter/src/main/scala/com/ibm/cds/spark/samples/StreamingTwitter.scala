@@ -141,6 +141,7 @@ object StreamingTwitter {
       var stream = org.apache.spark.streaming.twitter.TwitterUtils.createStream( ssc, None );
       
       if ( schemaTweets == null ){
+        println("Determining Schema")
         val schemaString = "author date lang text lat:double long:double"
         schemaTweets =
           StructType(
@@ -166,7 +167,7 @@ object StreamingTwitter {
           u => Option(u.getLang) 
         }.getOrElse("").startsWith("en") && CharMatcher.ASCII.matchesAllOf(status.getText) && ( keys.isEmpty || keys.exists{status.getText.contains(_)})
       }
-        
+       
       val rowTweets = tweets.map(status=> {
         lazy val client = PooledHttp1Client()
         var sentiment:Sentiment = null
@@ -251,7 +252,7 @@ object StreamingTwitter {
       new Thread( new Runnable {
         def run(){
           Thread.sleep( stopAfter.milliseconds )
-          stopTwitterStreaming
+          stopTwitterStreaming()
         }
       }).start
     }
